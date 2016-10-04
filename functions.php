@@ -1,6 +1,6 @@
 <?php
 
-
+	require("../../config.php");
 
 	//see fail peab olema kõigil lehtedel kus tahan kasutada SESSION muutujat
 	session_start();
@@ -68,6 +68,9 @@
 				$_SESSION["userId"]=$id;
 				$_SESSION["userEmail"]=$emailFromDb;
 				
+				$_SESSION["message"]="<h1>Tere tulemast!</h1>";
+				
+				
 				header("Location: data.php");
 			
 			}else{
@@ -85,4 +88,30 @@
 		
 	}
 	
+	
+	function saveCar ($plate, $color) {
+		
+		$error= "";
+		
+		$database = "if16_karlkruu";
+		$mysqli = new mysqli($GLOBALS["serverHost"], $GLOBALS["serverUsername"], $GLOBALS["serverPassword"], $database);
+		
+		$stmt=$mysqli->prepare("INSERT INTO cars_and_colors (plate, color) VALUES (?, ?)");
+		
+		echo $mysqli->error; 
+		
+		$stmt->bind_param("ss", $plate, $color);
+		
+		if($stmt->execute()) {
+			
+			echo "salvestamine õnnestus";
+		
+		}else{
+			echo "ERROR ".$stmt->error;
+		}
+	
+		$stmt->close();
+		$mysqli->close();
+		
+	}
 ?>

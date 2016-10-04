@@ -1,6 +1,6 @@
 <?php
 
-	require("../../config.php"); // ees on public html kaustast väljaminek, võtab configust andmed, kopeerib siia
+	
 	require("functions.php");
 	
 	//kui on juba sisse loginud, suunan data lehele
